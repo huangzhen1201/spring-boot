@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>hello</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<div th:object="${user}">
+    id: <span th:text="*{id}"></span><!--[[${user.id}]] -&#45;&#45; ${param.userid}-->
+    <br>
+    name: [[${user.name}]]
+    <br>
+    <div>content: [[${user.content}]]</div>
+    </div>
+
+</body>
+</html>
