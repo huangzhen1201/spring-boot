@@ -64,7 +64,7 @@ public class IOTest {
     }
 
     /**
-     * BufferedReader 读取文件
+     * BufferedReader 读取文件 字符流操作
      *
      * @throws Exception
      */
@@ -78,7 +78,7 @@ public class IOTest {
     }
 
     /**
-     * BufferedWriter 写入文件 new FileWriter(FILE_NAME, true) 追加方式写入文件
+     * BufferedWriter 写入文件 new FileWriter(FILE_NAME, true) 追加方式写入文件 字符流操作
      *
      * @throws Exception
      */
@@ -96,7 +96,7 @@ public class IOTest {
     }
 
     /**
-     * PrintWriter 快捷输入到文件，也用到了缓冲，效果和bufferedWriterTest一样
+     * PrintWriter 快捷输入到文件，也用到了缓冲，效果和bufferedWriterTest一样  字符流操作
      *
      * @throws Exception
      */
@@ -110,7 +110,7 @@ public class IOTest {
     }
 
     /**
-     * StringReader 从内存输出字符串
+     * StringReader 从内存输出字符串 字符流操作
      *
      * @throws Exception
      */
@@ -124,7 +124,7 @@ public class IOTest {
     }
 
     /**
-     * DataInputStream
+     * DataInputStream 字节流操作
      *
      * @throws Exception
      */
@@ -137,7 +137,7 @@ public class IOTest {
     }
 
     /**
-     * DataOutputStream and DataInputStream 存储和恢复数据，此时文件打开看到的数据是乱码状态，但是可以读取正常
+     * DataOutputStream and DataInputStream 存储和恢复数据，此时文件打开看到的数据是乱码状态，但是可以读取正常 -- 字节流操作
      *
      * @throws Exception
      */
@@ -223,7 +223,7 @@ public class IOTest {
     }
 
     /**
-     * 读取二进制文件
+     * 读取二进制文件 标准的字节流操作
      *
      * @throws Exception
      */
