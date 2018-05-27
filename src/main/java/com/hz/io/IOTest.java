@@ -208,7 +208,7 @@ public class IOTest {
         // System.err重定向到bos输出流
         System.setErr(bos);
         // 取得System.in的输入流, 其实已经重定向到了bis, 取得的是bis的流
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in, "UTF-8"));
         String s;
         while ((s = br.readLine()) != null) {
             // 系统打印，因为重定向到了bos, 所以为输出到bos
@@ -240,6 +240,6 @@ public class IOTest {
         BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(new File("D:/UNNGroup/xxx.jpg")));
         bos.write(data); // 字节数组输出到xxx.jpg文件
         bos.flush();
-        bos.close();
+        bos.close(); // 不关闭流将会导致文件写入失败
     }
 }
