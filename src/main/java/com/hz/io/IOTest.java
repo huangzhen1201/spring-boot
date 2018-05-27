@@ -118,9 +118,10 @@ public class IOTest {
         StringReader sr = new StringReader("我是一个字符串");
         int c;
         while ((c = sr.read()) != -1) {
-            System.out.println((char) c);
+            System.out.print((char) c);
         }
         sr.close();
+        System.out.println();
     }
 
     /**
@@ -131,9 +132,10 @@ public class IOTest {
     public static void dataInputStreamTest() throws Exception {
         DataInputStream dis = new DataInputStream(new ByteArrayInputStream("DataInputStream Test 嘿嘿".getBytes("UTF-8")));
         while (dis.available() != 0) {
-            System.out.println((char) dis.readByte());
+            System.out.print((char) dis.readByte());
         }
         dis.close();
+        System.out.println();
     }
 
     /**

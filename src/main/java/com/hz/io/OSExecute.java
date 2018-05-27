@@ -48,7 +48,7 @@ public class OSExecute {
             e.printStackTrace();
         }
         if (err) {
-            System.out.println(command + " --该指令执行失败");
+            System.out.println(command + " 该指令执行失败");
         }
     }
 }
