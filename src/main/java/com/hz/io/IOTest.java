@@ -1,5 +1,8 @@
 package com.hz.io;
 
+import org.apache.coyote.http11.filters.BufferedInputFilter;
+import org.junit.Test;
+
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
@@ -12,13 +15,16 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.io.InputStreamReader;
+import java.io.PrintStream;
 import java.io.PrintWriter;
 import java.io.RandomAccessFile;
 import java.io.StringReader;
 
 /**
  * IO 学习
- *
+ * Writer面向字符流，InputStream/OutputStream面向字节流
+ * <p>
  * Created by HZ-PC on 2018/5/27.
  */
 public class IOTest {
@@ -32,6 +38,10 @@ public class IOTest {
 
     public static void main(String[] args) {
         try {
+            /*
+            // 把系统打印重定向到 D:/UNNGroup/system.out 文件
+            System.setOut(new PrintStream(new FileOutputStream(new File(D:/UNNGroup/system.out))));
+            */
             System.out.println("------写字符串到文件--------");
             bufferedWriterTest();
             System.out.println("------快捷输出到文件------");
@@ -46,6 +56,8 @@ public class IOTest {
             dataOutputStreamTest();
             System.out.println("------RandomAccessFile------");
             randomAccessFileTest();
+            System.out.println("------I/O重定向-------");
+            ioRedircting();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -118,7 +130,7 @@ public class IOTest {
      */
     public static void dataInputStreamTest() throws Exception {
         DataInputStream dis = new DataInputStream(new ByteArrayInputStream("DataInputStream Test 嘿嘿".getBytes("UTF-8")));
-        while(dis.available() != 0) {
+        while (dis.available() != 0) {
             System.out.println((char) dis.readByte());
         }
         dis.close();
@@ -180,4 +192,54 @@ public class IOTest {
         raf.close();
     }
 
+    /**
+     * I/O重定向
+     *
+     * @throws Exception
+     */
+    public static void ioRedircting() throws Exception {
+        PrintStream ps = System.out;
+        BufferedInputStream bis = new BufferedInputStream(new FileInputStream(new File(FILE_NAME)));
+        PrintStream bos = new PrintStream(new FileOutputStream(new File(FILE_NAME2)));
+        // System.in重定向到bis输入流
+        System.setIn(bis);
+        // System.out重定向到bos输出流
+        System.setOut(bos);
+        // System.err重定向到bos输出流
+        System.setErr(bos);
+        // 取得System.in的输入流, 其实已经重定向到了bis, 取得的是bis的流
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        String s;
+        while ((s = br.readLine()) != null) {
+            // 系统打印，因为重定向到了bos, 所以为输出到bos
+            System.out.println(s);
+        }
+        // 这个错误信息也会输出到bos
+        System.err.println("这个错误信息会输出到哪里呢？");
+        bis.close();
+        bos.close();
+        // 交还重定向
+        System.setOut(ps);
+    }
+
+    /**
+     * 读取二进制文件
+     *
+     * @throws Exception
+     */
+    @Test
+    public void binrayFile() throws Exception {
+        // 读
+        BufferedInputStream bis = new BufferedInputStream(new FileInputStream(new File("F:\\图片\\tencentnews\\0a4392decb83cd18081417b2f36482d1.jpg")));
+        int byteLength = bis.available(); // 输入流字节大小
+        byte[] data = new byte[byteLength]; // 创建一个同等大小的字节数组
+        int result = bis.read(data); // 把流的字节写入到data字节数组
+        bis.close();
+        System.out.println("文件大小：" + result);
+        // 写
+        BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(new File("D:/UNNGroup/xxx.jpg")));
+        bos.write(data); // 字节数组输出到xxx.jpg文件
+        bos.flush();
+        bos.close();
+    }
 }
